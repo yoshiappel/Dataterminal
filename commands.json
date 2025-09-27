@@ -1,5 +1,14 @@
 {
-    "yt": "https://www.youtube.com",
-    "gh": "https://github.com",
-    "s": "https://www.google.com/"
+    "yt": {
+        "type": "url",
+        "value": "https://www.youtube.com"
+    },
+    "gh": {
+        "type": "url",
+        "value": "https://github.com"
+    },
+    "phasmo": {
+        "type": "steam",
+        "value": 739630
+    }
 }
