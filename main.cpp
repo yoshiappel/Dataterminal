@@ -6,6 +6,9 @@
 #include "nlohmann/json.hpp"
 #include <cstdlib>       
 #include <filesystem>    
+#include <vector>
+#include <random>
+#include <ctime>
 namespace fs = std::filesystem;
 
 using json = nlohmann::json;
@@ -115,6 +118,26 @@ CommandData loadJsonCommands(const std::string& filename) {
     return data; 
 }
 
+void randomWord() {
+        // List of words
+    std::vector<std::string> words = {
+        "apple!", "banana!", "cherry!", "elderberry!", "cool!", "awesome!", "amazing!", "fantastic!"
+    };
+
+    // Initialize random engine with time-based seed
+    std::mt19937 rng(static_cast<unsigned int>(time(nullptr)));
+
+    // Create distribution for valid indices
+    std::uniform_int_distribution<size_t> dist(0, words.size() - 1);
+
+    // Choose random word
+    std::string randomWord = words[dist(rng)];
+
+    std::cout << randomWord << "\n";
+
+    return;
+}
+
 int main() {
     // first load and check the path
     std::string jsonPath = getJsonPathFromConfig();
@@ -162,6 +185,7 @@ int main() {
         auto it = data.commands.find(input);
         if (it != data.commands.end()) { 
             it->second(); // call the lambda function associated with that key like "yt" [] () {openURL("youtube.com"); })
+            randomWord();
         } else { 
             std::cout << "You entered: " << input << ", thats not a command silly!" "\nTry 'help' for a list of commands\n";
         }
