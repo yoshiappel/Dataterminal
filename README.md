@@ -15,7 +15,13 @@ Commands like
 - You don't have to recompile.
 
 # Project Setup
-- Download this project.
-- Change this line "CommandData data = loadJsonCommands("YOURLOCATION/commands.json");" to the location of the commands.json.
-- Compile and run inside you terminal.
+- Download this project (or just the cli.exe).
+- Compile main.cpp and run it inside your terminal, or just run cli.exe.
 - Alternatively you could set a path in your system enviroments and just type the name in CMD then and it would also work.
+
+# Debugging
+If you get a error trying to set your json path, first check if it is spelled correctly.
+When that does not work try to insert it without quotes.
+
+Example for a correct commands.json path:
+C:\Users\yoshi\Documents\Dev\DataTerminalCMD\commands.json
