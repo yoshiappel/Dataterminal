@@ -156,10 +156,10 @@ int main() {
         std::cerr << "No commands were loaded. --Reset to enter a new path.\n";
     }
 
-    int cir = 0;
+    int cir = 0; // for disabling random words
 
     std::string input;
-    std::cout << "Welcome to the best cli in the world! - Type 'help' to list commands or 'exit' to quit\n"; 
+    std::cout << "Welcome to Dataterminal - Type 'help' to list commands or 'exit' to quit\n"; 
 
     while (true) {
         std::cout << "> ";
@@ -170,6 +170,8 @@ int main() {
             for (auto it = data.commandsJson.begin(); it != data.commandsJson.end(); ++it) {
                 std::cout << "- " << it.key() << "\n";
             }
+            std::cout << "Other commands: \n";
+            std::cout << "- help\n- cir\n- --reset\n- exit\n";
             continue; // skip the rest of the loop or it will display a not a command warning
         }
 
@@ -192,6 +194,7 @@ int main() {
         }
 
         if (input == "exit") {
+            std::cout << "Closing program.....\n";
             break;
         } 
         
