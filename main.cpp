@@ -110,6 +110,9 @@ CommandData loadJsonCommands(const std::string& filename) {
                 std::string command = "start steam://run/" + std::to_string(appId);
                 system(command.c_str());
             };
+        } else if (type == "response") {
+            std::string response = val.value("value", "");
+            data.commands[key] = [response]() { std::cout << response << "\n"; };
         } else {
             std::cerr << "Unknown command type for key: " << key << std::endl;
         }
@@ -119,7 +122,7 @@ CommandData loadJsonCommands(const std::string& filename) {
 }
 
 void randomWord() {
-        // List of words
+    // List of words
     std::vector<std::string> words = {
         "apple!", "banana!", "cherry!", "elderberry!", "cool!", "awesome!", "amazing!", "fantastic!"
     };
@@ -133,8 +136,7 @@ void randomWord() {
     // Choose random word
     std::string randomWord = words[dist(rng)];
 
-    std::cout << randomWord << "\n";
-
+    std::cout << randomWord <<"\n";
     return;
 }
 
@@ -151,9 +153,10 @@ int main() {
     CommandData data = loadJsonCommands(jsonPath);
 
     if (data.commands.empty()) {
-        std::cerr << "No commands were loaded. Exiting.\n";
-        return 1;
+        std::cerr << "No commands were loaded. --Reset to enter a new path.\n";
     }
+
+    int cir = 0;
 
     std::string input;
     std::cout << "Welcome to the best cli in the world! - Type 'help' to list commands or 'exit' to quit\n"; 
@@ -168,6 +171,18 @@ int main() {
                 std::cout << "- " << it.key() << "\n";
             }
             continue; // skip the rest of the loop or it will display a not a command warning
+        }
+
+        // for if the user wants to disable the random words
+        if (input == "cir") {
+            if (cir == 0) {
+                cir = 1;
+                std::cout << "Disabled random words \n";
+            } else if (cir == 1) {
+                cir = 0;
+                std::cout << "Enabled random words \n";
+            }
+            continue;
         }
         
         if (input == "--reset") {
@@ -185,7 +200,9 @@ int main() {
         auto it = data.commands.find(input);
         if (it != data.commands.end()) { 
             it->second(); // call the lambda function associated with that key like "yt" [] () {openURL("youtube.com"); })
-            randomWord();
+            if (cir == 0) {
+                randomWord();
+            }
         } else { 
             std::cout << "You entered: " << input << ", thats not a command silly!" "\nTry 'help' for a list of commands\n";
         }

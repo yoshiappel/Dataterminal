@@ -10,5 +10,9 @@
     "phasmo": {
         "type": "steam",
         "value": 739630
+    },
+    "hello": {
+        "type": "response",
+        "value": "test"
     }
 }
